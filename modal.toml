@@ -1,0 +1,5 @@
+[app]
+name = "course-crafter-server"
+
+[function.fastapi_app]
+concurrency = 20]
