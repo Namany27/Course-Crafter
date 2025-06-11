@@ -1,5 +1,6 @@
 import gradio as gr
 import modal 
+import os
 
 # 🔐 Set Modal Token for authentication
 os.environ["MODAL_TOKEN_ID"] = "ak-QFZrcOywzIx2cPiTkQr6qp"
@@ -9,7 +10,7 @@ modal.config.token_secret = os.environ["MODAL_TOKEN_SECRET"]
 
 from reportlab.pdfgen import canvas
 import tempfile
-import os
+
 
 # Load the remote Modal function
 generate_course_plan = modal.Function.from_name("course-crafter", "generate_course_plan")
