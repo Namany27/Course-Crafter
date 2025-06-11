@@ -1,5 +1,12 @@
 import gradio as gr
-import modal
+import modal # ✅ Top
+
+# 🔐 Set Modal Token for authentication
+os.environ["MODAL_TOKEN_ID"] = "your-token-id"
+os.environ["MODAL_TOKEN_SECRET"] = "your-token-secret"
+modal.config.token_id = os.environ["MODAL_TOKEN_ID"]
+modal.config.token_secret = os.environ["MODAL_TOKEN_SECRET"]
+
 from reportlab.pdfgen import canvas
 import tempfile
 import os
