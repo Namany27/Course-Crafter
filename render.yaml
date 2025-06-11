@@ -7,7 +7,7 @@ services:
   plan: free
   region: oregon
   buildCommand: |
-  modal token set --token-id ak-onlBRTIK3RROztC5Snkdh0 --token-secret as-GeJK1Kw3ZJgdjMmSWCfzAW
+  modal token new
   pip install -r requirements.txt
     
   startCommand: python gradio_ui.py
