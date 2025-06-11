@@ -9,8 +9,7 @@ services:
   buildCommand: |
     python
     pip install -r requirements.txt
-    modal token new
-    
+    modal token set --token-id ak-HedtiE3jD6vlbQc5STLxdQ --token-secret as-1sE5SzrIscgg3WzjsmlnwO 
   startCommand: python gradio_ui.py
   autoDeployTrigger: commit
 version: "1"
