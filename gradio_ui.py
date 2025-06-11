@@ -1,7 +1,5 @@
 import gradio as gr
-import modal # ✅ Top
-
-modal token set --token-id  --token-secret  
+import modal 
 
 # 🔐 Set Modal Token for authentication
 os.environ["MODAL_TOKEN_ID"] = "ak-QFZrcOywzIx2cPiTkQr6qp"
