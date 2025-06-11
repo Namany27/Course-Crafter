@@ -1,3 +1,9 @@
 gradio
-openai
+modal-client
 modal
+reportlab
+transformers
+torch
+fastapi
+uvicorn
+huggingface_hub
