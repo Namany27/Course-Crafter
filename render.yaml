@@ -6,8 +6,7 @@ services:
   repo: https://github.com/Namany27/Course-Crafter
   plan: free
   region: oregon
-  buildCommand: |
-  modal token new
+  buildCommand: | modal token new
   pip install -r requirements.txt
     
   startCommand: python gradio_ui.py
