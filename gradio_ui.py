@@ -3,7 +3,6 @@ import modal
 from reportlab.pdfgen import canvas
 import tempfile
 import os
-from gradio_advancetextbox import AdvanceTextbox
 
 # Load the remote Modal function
 generate_course_plan = modal.Function.from_name("course-crafter", "generate_course_plan")
