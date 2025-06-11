@@ -93,4 +93,4 @@ with gr.Blocks(css=".gr-box { border-radius: 12px; padding: 16px; box-shadow: 0 
 
 # Run app
 if __name__ == "__main__":
-    ui.launch()
+    ui.launch(server_name="0.0.0.0", server_port=8080)
