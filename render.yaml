@@ -1,13 +1,15 @@
+
 services:
-  - type: web
-    name: coursecrafter
-    env: python
-    buildCommand: |
+- type: web
+  name: Course-Crafter
+  runtime: python
+  repo: https://github.com/Namany27/Course-Crafter
+  plan: free
+  region: oregon
+  buildCommand: |
   modal token set --token-id ak-onlBRTIK3RROztC5Snkdh0 --token-secret as-GeJK1Kw3ZJgdjMmSWCfzAW
   pip install -r requirements.txt
-    startCommand: python gradio_ui.py
-    envVars:
-      - key: MODAL_TOKEN_ID
-        value: ak-onlBRTIK3RROztC5Snkdh0
-      - key: MODAL_TOKEN_SECRET
-        value: as-GeJK1Kw3ZJgdjMmSWCfzAW
+    
+  startCommand: python gradio_ui.py
+  autoDeployTrigger: commit
+version: "1"
