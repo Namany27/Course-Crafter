@@ -1,7 +1,6 @@
 import gradio as gr
-import modal 
+import modal
 import os
-from fpdf import FPDF
 import tempfile
 
 # 🔐 Set Modal Token for authentication
@@ -35,24 +34,16 @@ def generate(topic, duration, budget, currency, preferred_type):
         print("⚠️ Error:", e)
         return f"⚠️ Error: {str(e)}", None
 
-# Generate PDF from course plan text using FPDF
-def create_pdf(course_text):
+# Generate .txt file from course plan
+def create_txt(course_text):
     if not course_text or course_text.startswith("⚠️ Error"):
-        print("⚠️ No content to create PDF.")
+        print("⚠️ No content to create TXT file.")
         return None
 
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_auto_page_break(auto=True, margin=15)
-    pdf.set_font("helvetica", size=12)  # Using helvetica for full compatibility
-
-    for line in course_text.split("\n"):
-        pdf.multi_cell(0, 10, line)
-
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
-        pdf.output(tmp.name)
-        print("✅ PDF saved at:", tmp.name)
-        return tmp.name
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".txt", mode="w", encoding="utf-8") as tmp:
+        tmp.write(course_text)
+        print("✅ TXT file saved at:", tmp.name)
+        return tmp.name  # This must be returned to gr.File to allow download
 
 # Build the UI
 with gr.Blocks(css=".gr-box { border-radius: 12px; padding: 16px; box-shadow: 0 0 10px #eee; }") as ui:
@@ -60,7 +51,7 @@ with gr.Blocks(css=".gr-box { border-radius: 12px; padding: 16px; box-shadow: 0 
     # 🎓 **CourseCrafter**
     _AI-powered personalized course generator_
 
-    Enter your details and download your learning roadmap as a PDF! ✨
+    Enter your details and download your learning roadmap as a TXT file! ✨
     """)
 
     with gr.Row():
@@ -83,22 +74,22 @@ with gr.Blocks(css=".gr-box { border-radius: 12px; padding: 16px; box-shadow: 0 
             )
 
             submit_btn = gr.Button("🚀 Generate Course Plan", variant="primary")
-            download_btn = gr.Button("📥 Download as PDF")
+            download_btn = gr.Button("📥 Download as TXT")
 
         with gr.Column(scale=1):
             output_box = gr.Textbox(label="📦 AI-Generated Course Plan", lines=18, interactive=False, show_copy_button=True)
-            pdf_file = gr.File(label="📄 Download your PDF", visible=True)  # Make always visible
+            txt_file = gr.File(label="📄 Download your TXT", visible=True)
 
     submit_btn.click(
         fn=generate,
         inputs=[topic, duration, budget, currency, preferred_type],
-        outputs=[output_box, pdf_file]
+        outputs=[output_box, txt_file]  # <--- Always return the file path to download
     )
 
     download_btn.click(
-        fn=create_pdf,
+        fn=create_txt,
         inputs=output_box,
-        outputs=pdf_file
+        outputs=txt_file  # <--- Directly update file component with generated path
     )
 
 # Run app
