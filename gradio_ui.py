@@ -1,16 +1,14 @@
 import gradio as gr
 import modal 
 import os
+from fpdf import FPDF
+import tempfile
 
 # 🔐 Set Modal Token for authentication
 os.environ["MODAL_TOKEN_ID"] = "ak-QFZrcOywzIx2cPiTkQr6qp"
 os.environ["MODAL_TOKEN_SECRET"] = "as-xd8FYk0A0LED2A74tbwwn0"
 modal.config.token_id = os.environ["MODAL_TOKEN_ID"]
 modal.config.token_secret = os.environ["MODAL_TOKEN_SECRET"]
-
-from fpdf import FPDF
-import tempfile
-
 
 # Load the remote Modal function
 generate_course_plan = modal.Function.from_name("course-crafter", "generate_course_plan")
@@ -40,18 +38,20 @@ def generate(topic, duration, budget, currency, preferred_type):
 # Generate PDF from course plan text using FPDF
 def create_pdf(course_text):
     if not course_text or course_text.startswith("⚠️ Error"):
+        print("⚠️ No content to create PDF.")
         return None
 
     pdf = FPDF()
     pdf.add_page()
     pdf.set_auto_page_break(auto=True, margin=15)
-    pdf.set_font("Arial", size=12)
+    pdf.set_font("helvetica", size=12)  # Using helvetica for full compatibility
 
     for line in course_text.split("\n"):
         pdf.multi_cell(0, 10, line)
 
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
         pdf.output(tmp.name)
+        print("✅ PDF saved at:", tmp.name)
         return tmp.name
 
 # Build the UI
@@ -87,7 +87,7 @@ with gr.Blocks(css=".gr-box { border-radius: 12px; padding: 16px; box-shadow: 0 
 
         with gr.Column(scale=1):
             output_box = gr.Textbox(label="📦 AI-Generated Course Plan", lines=18, interactive=False, show_copy_button=True)
-            pdf_file = gr.File(label="📄 Download your PDF", visible=False)
+            pdf_file = gr.File(label="📄 Download your PDF", visible=True)  # Make always visible
 
     submit_btn.click(
         fn=generate,
