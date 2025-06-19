@@ -43,7 +43,7 @@ def create_txt(course_text):
     with tempfile.NamedTemporaryFile(delete=False, suffix=".txt", mode="w", encoding="utf-8") as tmp:
         tmp.write(course_text)
         print("✅ TXT file saved at:", tmp.name)
-        return tmp.name  # This must be returned to gr.File to allow download
+        return tmp.name
 
 # Build the UI
 with gr.Blocks(css=".gr-box { border-radius: 12px; padding: 16px; box-shadow: 0 0 10px #eee; }") as ui:
@@ -83,13 +83,13 @@ with gr.Blocks(css=".gr-box { border-radius: 12px; padding: 16px; box-shadow: 0 
     submit_btn.click(
         fn=generate,
         inputs=[topic, duration, budget, currency, preferred_type],
-        outputs=[output_box, txt_file]  # <--- Always return the file path to download
+        outputs=[output_box, txt_file]
     )
 
     download_btn.click(
         fn=create_txt,
         inputs=output_box,
-        outputs=txt_file  # <--- Directly update file component with generated path
+        outputs=txt_file
     )
 
 # Run app
