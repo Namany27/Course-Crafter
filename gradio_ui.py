@@ -78,7 +78,7 @@ with gr.Blocks(css=".gr-box { border-radius: 12px; padding: 16px; box-shadow: 0 
 
         with gr.Column(scale=1):
             output_box = gr.Textbox(label="📦 AI-Generated Course Plan", lines=18, interactive=False, show_copy_button=True)
-            txt_file = gr.File(label="📄TXT Generated", visible=false)
+            txt_file = gr.File(label="📄TXT Generated", visible=False)
 
     submit_btn.click(
         fn=generate,
