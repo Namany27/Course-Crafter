@@ -8,7 +8,7 @@ os.environ["MODAL_TOKEN_SECRET"] = "as-xd8FYk0A0LED2A74tbwwn0"
 modal.config.token_id = os.environ["MODAL_TOKEN_ID"]
 modal.config.token_secret = os.environ["MODAL_TOKEN_SECRET"]
 
-from reportlab.pdfgen import canvas
+from fpdf import FPDF
 import tempfile
 
 
@@ -37,19 +37,21 @@ def generate(topic, duration, budget, currency, preferred_type):
         print("⚠️ Error:", e)
         return f"⚠️ Error: {str(e)}", None
 
-# Generate PDF from course plan text
+# Generate PDF from course plan text using FPDF
 def create_pdf(course_text):
     if not course_text or course_text.startswith("⚠️ Error"):
         return None
 
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_auto_page_break(auto=True, margin=15)
+    pdf.set_font("Arial", size=12)
+
+    for line in course_text.split("\n"):
+        pdf.multi_cell(0, 10, line)
+
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
-        c = canvas.Canvas(tmp.name)
-        text_obj = c.beginText(40, 800)
-        text_obj.setFont("Helvetica", 12)
-        for line in course_text.split("\n"):
-            text_obj.textLine(line)
-        c.drawText(text_obj)
-        c.save()
+        pdf.output(tmp.name)
         return tmp.name
 
 # Build the UI
