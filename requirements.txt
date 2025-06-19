@@ -1,7 +1,7 @@
 gradio
 modal-client
 modal
-reportlab
+fpdf
 transformers
 torch
 fastapi
