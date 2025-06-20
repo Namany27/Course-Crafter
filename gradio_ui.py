@@ -83,7 +83,7 @@ with gr.Blocks(css=".gr-box { border-radius: 12px; padding: 16px; box-shadow: 0 
     submit_btn.click(
         fn=generate,
         inputs=[topic, duration, budget, currency, preferred_type],
-        outputs=[output_box, txt_file]
+        outputs=[output_box, txt_file],
 
         fn=create_txt,
         inputs=output_box,
