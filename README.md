@@ -3,6 +3,7 @@
 🎯 *AI-powered Personalized Learning Roadmaps*
 
 [![Demo Video](https://img.shields.io/badge/Watch-Demo-red?logo=youtube)](https://youtu.be/wfe3USWLW20?feature=shared)
+[![Live App](https://img.shields.io/badge/Try-Live--Demo-brightgreen?logo=render)](https://course-crafter.onrender.com)
 [![GitHub Repo](https://img.shields.io/badge/Source-Code-blue?logo=github)](https://github.com/Namany27/Course-Crafter)
 
 ---
@@ -34,8 +35,8 @@ Whether you're diving into **Game Development**, **Machine Learning**, or any ot
 
 ## 📽 Demo
 
-Check out the full walkthrough here:  
-🎥 [Watch Demo](https://youtu.be/wfe3USWLW20?feature=shared)
+- 🔗 **Live App**: [course-crafter.onrender.com](https://course-crafter.onrender.com)  
+- 📺 **Video Walkthrough**: [Watch Demo Video](https://youtu.be/wfe3USWLW20?feature=shared)
 
 ---
 
